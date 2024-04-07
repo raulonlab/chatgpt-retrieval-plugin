@@ -1,0 +1,56 @@
+# Source: https://github.com/render-examples/chatgpt-retrieval-plugin/blob/main/render.yaml
+# Other files:
+  # https://github.com/render-examples/chatgpt-retrieval-plugin/blob/main/Dockerfile
+  # https://github.com/render-examples/chatgpt-retrieval-plugin/blob/main/Dockerfile.weaviate
+
+services:
+  # FastAPI Server
+  - type: web
+    runtime: docker
+    name: retrieval-plugin-server 
+    # region: oregon
+    # plan: starter
+    dockerfilePath: ./Dockerfile
+    envVars: 
+      - key: DATASTORE
+        value: chroma
+      - key: BEARER_TOKEN
+        generateValue: true 
+      # will be promtped to add this in the UI on deployment
+      - key: OPENAI_API_KEY
+        sync: false
+      # - key: WEAVIATE_HOSTNAME
+      #   fromService:
+      #     type: pserv
+      #     name: weaviate
+      #     property: host
+      # - key: WEAVIATE_PORT
+      #   value: 8080
+    disk:
+      name: chromadb-disk
+      mountPath: /data/chromadb
+      sizeGB: 1
+
+  # # Weaviate vector database
+  # - type: pserv
+  #   name: weaviate
+  #   region: oregon
+  #   plan: starter
+  #   env: docker
+  #   dockerfilePath: ./Dockerfile.weaviate
+  #   autoDeploy: false
+  #   disk:
+  #     name: weaviate-data
+  #     mountPath: /var/lib/weaviate
+  #     sizeGB: 4
+  #   envVars:
+  #     - key: QUERY_DEFAULTS_LIMIT
+  #       value: 25
+  #     - key: AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED
+  #       value: true
+  #     - key: PERSISTENCE_DATA_PATH
+  #       value: /var/lib/weaviate
+  #     - key: DEFAULT_VECTORIZER_MODULE
+  #       value: none
+  #     - key: CLUSTER_HOSTNAME
+  #       value: node1
