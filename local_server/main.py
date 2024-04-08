@@ -20,6 +20,9 @@ from starlette.responses import FileResponse
 
 from models.models import DocumentMetadata, Source
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path=".env", override=True)  # load default .env file
 
 
 app = FastAPI()

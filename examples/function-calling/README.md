@@ -73,6 +73,10 @@ tools = [
                                         "end_date": {
                                             "type": "string",
                                             "title": "End Date"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "title": "Title"
                                         }
                                     }
                                 },
@@ -141,6 +145,10 @@ tools = [
                                         "end_date": {
                                             "type": "string",
                                             "title": "End Date"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "title": "Title"
                                         }
                                     }
                                 },
@@ -202,7 +210,11 @@ tools = [
                                         "author": {
                                             "type": "string",
                                             "title": "Author"
-                                        }
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "title": "Title"
+                                        },
                                     }
                                 }
                             },

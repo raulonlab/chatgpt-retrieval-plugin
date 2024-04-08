@@ -95,6 +95,9 @@ components:
         document_id:
           title: Document Id
           type: string
+        title:
+          title: Title
+          type: string
     DocumentChunkWithScore:
       title: DocumentChunkWithScore
       required:
@@ -137,6 +140,9 @@ components:
         author:
           title: Author
           type: string
+        title:
+          title: Title
+          type: string
     DocumentMetadataFilter:
       title: DocumentMetadataFilter
       type: object
@@ -157,6 +163,9 @@ components:
           type: string
         end_date:
           title: End Date
+          type: string
+        title:
+          title: Title
           type: string
     HTTPValidationError:
       title: HTTPValidationError

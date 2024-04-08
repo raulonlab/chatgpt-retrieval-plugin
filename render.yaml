@@ -13,22 +13,19 @@ services:
     dockerfilePath: ./Dockerfile
     envVars: 
       - key: DATASTORE
-        value: chroma
+        value: chatnerds
       - key: BEARER_TOKEN
         generateValue: true 
       # will be promtped to add this in the UI on deployment
       - key: OPENAI_API_KEY
         sync: false
-      # - key: WEAVIATE_HOSTNAME
-      #   fromService:
-      #     type: pserv
-      #     name: weaviate
-      #     property: host
-      # - key: WEAVIATE_PORT
-      #   value: 8080
+      - key: ACTIVE_NERD
+        sync: false
+      - key: NERDS_DIRECTORY_PATH
+        value: /data/nerds
     disk:
-      name: chromadb-disk
-      mountPath: /data/chromadb
+      name: data-disk
+      mountPath: /data/
       sizeGB: 1
 
   # # Weaviate vector database

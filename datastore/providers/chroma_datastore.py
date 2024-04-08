@@ -26,7 +26,7 @@ from models.models import (
 )
 from services.chunks import get_document_chunks
 
-CHROMA_IN_MEMORY = os.environ.get("CHROMA_IN_MEMORY", "True")
+CHROMA_IN_MEMORY = bool(os.environ.get("CHROMA_IN_MEMORY", "True"))
 CHROMA_PERSISTENCE_DIR = os.environ.get("CHROMA_PERSISTENCE_DIR", "openai")
 CHROMA_HOST = os.environ.get("CHROMA_HOST", "http://127.0.0.1")
 CHROMA_PORT = os.environ.get("CHROMA_PORT", "8000")
@@ -49,7 +49,8 @@ class ChromaDataStore(DataStore):
             if in_memory:
                 settings = (
                     chromadb.config.Settings(
-                        chroma_db_impl="duckdb+parquet",
+                        # chroma_db_impl="duckdb+parquet",
+                        is_persistent=True,
                         persist_directory=persistence_dir,
                     )
                     if persistence_dir
@@ -152,9 +153,12 @@ class ChromaDataStore(DataStore):
         if metadata.url:
             stored_metadata["url"] = metadata.url
         if metadata.created_at:
-            stored_metadata["created_at"] = int(
-                datetime.fromisoformat(metadata.created_at).timestamp()
-            )
+            try:
+                stored_metadata["created_at"] = int(
+                    datetime.fromisoformat(metadata.created_at).timestamp()
+                )
+            except:
+                stored_metadata["created_at"] = None
         if metadata.author:
             stored_metadata["author"] = metadata.author
         if metadata.document_id:
@@ -163,15 +167,18 @@ class ChromaDataStore(DataStore):
         return stored_metadata
 
     def _process_metadata_from_storage(self, metadata: Dict) -> DocumentChunkMetadata:
+        try:
+            created_at=datetime.fromtimestamp(metadata["created_at"]).isoformat() if "created_at" in metadata else None
+        except:
+            created_at=None
+
         return DocumentChunkMetadata(
             source=Source(metadata["source"]) if "source" in metadata else None,
-            source_id=metadata.get("source_id", None),
+            source_id=metadata.get("source", None),
             url=metadata.get("url", None),
-            created_at=datetime.fromtimestamp(metadata["created_at"]).isoformat()
-            if "created_at" in metadata
-            else None,
-            author=metadata.get("author", None),
-            document_id=metadata.get("document_id", None),
+            created_at=created_at,
+            author=metadata.get("author", metadata.get("artist", None)),
+            title=metadata.get("title", None),
         )
 
     async def _query(self, queries: List[QueryWithEmbedding]) -> List[QueryResult]:

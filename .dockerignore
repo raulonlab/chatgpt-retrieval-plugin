@@ -10,3 +10,6 @@ assets/
 *.pyc
 .dockerignore
 Dockerfile
+
+nerds/
+render.yaml
