@@ -6,13 +6,11 @@
 services:
   # FastAPI Server
   - type: web
-    runtime: python
-    name: chatnerds-retrieval-plugin-server
-    autoDeploy: false
-    buildCommand: pip install --upgrade -r requirements.txt
-    startCommand: uvicorn server.main:app --host 0.0.0.0 --port $PORT
+    runtime: docker
+    name: retrieval-plugin-server 
     # region: oregon
     # plan: starter
+    dockerfilePath: ./Dockerfile
     envVars: 
       - key: DATASTORE
         value: chatnerds
