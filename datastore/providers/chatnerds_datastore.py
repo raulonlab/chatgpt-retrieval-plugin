@@ -7,8 +7,8 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from langchain_core.tracers.stdout import ConsoleCallbackHandler
-from chatnerds.langchain.chain_factory import ChainFactory
-from chatnerds.config import Config
+from chatnerds_retrieval_plugin.langchain.chain_factory import ChainFactory
+from chatnerds_retrieval_plugin.config import Config
 
 from datastore.datastore import DataStore
 from models.models import (

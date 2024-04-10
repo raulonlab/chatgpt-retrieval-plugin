@@ -12,3 +12,10 @@ heroku-push:
 
 heroku-login:
 	heroku container:login
+
+import-chatnerds:
+	# @mkdir -p ./chatnerds_retrieval_plugin
+	# @cp -r ../chatnerds/chatnerds_retrieval_plugin/ ./
+
+	rsync -a --exclude '__pycache__' ../chatnerds/chatnerds_retrieval_plugin ./
+
