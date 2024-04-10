@@ -22,7 +22,7 @@ services:
       - key: OPENAI_API_KEY
         sync: false
       - key: ACTIVE_NERD
-        sync: false
+        value: seduction
       - key: NERDS_DIRECTORY_PATH
         value: /data/nerds
     disk:

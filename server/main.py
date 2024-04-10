@@ -14,6 +14,10 @@ from models.api import (
     UpsertRequest,
     UpsertResponse,
 )
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from datastore.factory import get_datastore
 from services.file import get_document_from_file
 

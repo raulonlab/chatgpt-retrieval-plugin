@@ -13,6 +13,9 @@ heroku-push:
 heroku-login:
 	heroku container:login
 
+poetry-export-requirements:
+	@poetry export -f requirements.txt --output requirements.txt --without-hashes
+
 import-chatnerds:
 	# @mkdir -p ./chatnerds_retrieval_plugin
 	# @cp -r ../chatnerds/chatnerds_retrieval_plugin/ ./
